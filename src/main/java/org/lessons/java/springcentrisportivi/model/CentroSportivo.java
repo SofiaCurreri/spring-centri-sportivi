@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "centri_sportivi")
-public class CentriSportivi {
+public class CentroSportivo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class CentriSportivi {
 
     @JsonIgnore
     @OneToMany(mappedBy = "centroSportivo")
-    private List<Membri> membri = new ArrayList<>();
+    private List<Membro> membri = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -101,11 +101,11 @@ public class CentriSportivi {
         this.updatedAt = updatedAt;
     }
 
-    public List<Membri> getMembri() {
+    public List<Membro> getMembri() {
         return membri;
     }
 
-    public void setMembri(List<Membri> membri) {
+    public void setMembri(List<Membro> membri) {
         this.membri = membri;
     }
 }
