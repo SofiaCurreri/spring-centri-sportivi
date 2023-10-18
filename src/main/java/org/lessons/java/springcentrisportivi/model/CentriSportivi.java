@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "centri_sportivi")
@@ -29,6 +31,9 @@ public class CentriSportivi {
     private Integer quotaIscrizione;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "centroSportivo")
+    private List<Membri> membri = new ArrayList<>();
 
     public Integer getId() {
         return id;
