@@ -34,8 +34,11 @@ public class CentroSportivo {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "centroSportivo")
+    @OneToMany(mappedBy = "centroSportivo", cascade = {CascadeType.ALL})
     private List<Membro> membri = new ArrayList<>();
+
+    @OneToMany(mappedBy = "centroSportivo")
+    private CentroSportivoSport centroSportivoSport;
 
     public Integer getId() {
         return id;
@@ -107,5 +110,13 @@ public class CentroSportivo {
 
     public void setMembri(List<Membro> membri) {
         this.membri = membri;
+    }
+
+    public CentroSportivoSport getCentroSportivoSport() {
+        return centroSportivoSport;
+    }
+
+    public void setCentroSportivoSport(CentroSportivoSport centroSportivoSport) {
+        this.centroSportivoSport = centroSportivoSport;
     }
 }

@@ -26,6 +26,9 @@ public class Sport {
     @ManyToMany(mappedBy = "sports")
     private List<Membro> membri = new ArrayList<>();
 
+    @OneToMany(mappedBy = "sport")
+    private CentroSportivoSport centroSportivoSport;
+
     public Integer getId() {
         return id;
     }
@@ -64,5 +67,13 @@ public class Sport {
 
     public void setMembri(List<Membro> membri) {
         this.membri = membri;
+    }
+
+    public CentroSportivoSport getCentroSportivoSport() {
+        return centroSportivoSport;
+    }
+
+    public void setCentroSportivoSport(CentroSportivoSport centroSportivoSport) {
+        this.centroSportivoSport = centroSportivoSport;
     }
 }
