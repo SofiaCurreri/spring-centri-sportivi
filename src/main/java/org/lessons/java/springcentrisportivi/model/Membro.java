@@ -7,10 +7,12 @@ import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "membri")
-public class Membri {
+public class Membro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +31,19 @@ public class Membri {
     @NotBlank(message = "E' necessario inserire un indirizzo email")
     @Column(unique = true, nullable = false)
     private String email;
-    @ManyToOne
-    @JoinColumn(name = "id_centro_sportivo", nullable = false)
-    private CentriSportivi centroSportivo;
     @NotNull(message = "E' necessario inserire una data di iscrizione")
     @Column(nullable = false)
     private LocalDate dataIscrizione;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "id_centro_sportivo", nullable = false)
+    private CentroSportivo centroSportivo;
+
+    @ManyToMany
+    @JoinTable(name = "membro_sport", joinColumns = @JoinColumn(name = "id_membro"), inverseJoinColumns = @JoinColumn(name = "id_sport"))
+    private List<Sport> sports = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -78,11 +85,11 @@ public class Membri {
         this.email = email;
     }
 
-    public CentriSportivi getCentroSportivo() {
+    public CentroSportivo getCentroSportivo() {
         return centroSportivo;
     }
 
-    public void setCentroSportivo(CentriSportivi centroSportivo) {
+    public void setCentroSportivo(CentroSportivo centroSportivo) {
         this.centroSportivo = centroSportivo;
     }
 
@@ -108,5 +115,13 @@ public class Membri {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Sport> getSports() {
+        return sports;
+    }
+
+    public void setSports(List<Sport> sports) {
+        this.sports = sports;
     }
 }

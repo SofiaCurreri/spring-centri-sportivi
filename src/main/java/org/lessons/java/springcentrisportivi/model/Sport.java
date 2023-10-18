@@ -1,13 +1,16 @@
 package org.lessons.java.springcentrisportivi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sports")
-public class Sports {
+public class Sport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +21,10 @@ public class Sports {
     private String nome;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "sports")
+    private List<Membro> membri = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -49,5 +56,13 @@ public class Sports {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Membro> getMembri() {
+        return membri;
+    }
+
+    public void setMembri(List<Membro> membri) {
+        this.membri = membri;
     }
 }
