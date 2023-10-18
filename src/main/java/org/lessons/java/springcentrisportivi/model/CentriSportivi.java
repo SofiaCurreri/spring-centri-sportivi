@@ -1,5 +1,6 @@
 package org.lessons.java.springcentrisportivi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ public class CentriSportivi {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "centroSportivo")
     private List<Membri> membri = new ArrayList<>();
 
@@ -97,5 +99,13 @@ public class CentriSportivi {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Membri> getMembri() {
+        return membri;
+    }
+
+    public void setMembri(List<Membri> membri) {
+        this.membri = membri;
     }
 }
