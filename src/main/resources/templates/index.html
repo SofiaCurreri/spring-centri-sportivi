@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Centri Sportivi</title>
+</head>
+
+<body>
+<h1>Centri Sportivi</h1>
+<ul th:each="centroSportivo : ${lista}">
+    <li th:text="${centroSportivo.nome}"></li>
+</ul>
+
+</body>
+</html>
