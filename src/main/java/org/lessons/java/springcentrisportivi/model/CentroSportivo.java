@@ -39,7 +39,7 @@ public class CentroSportivo {
 
     @JsonIgnore
     @OneToMany(mappedBy = "centroSportivo")
-    private CentroSportivoSport centroSportivoSport;
+    private List<CentroSportivoSport> centroSportivoSports;
 
     public Integer getId() {
         return id;
@@ -113,11 +113,11 @@ public class CentroSportivo {
         this.membri = membri;
     }
 
-    public CentroSportivoSport getCentroSportivoSport() {
-        return centroSportivoSport;
+    public List<CentroSportivoSport> getCentroSportivoSports() {
+        return centroSportivoSports;
     }
 
-    public void setCentroSportivoSport(CentroSportivoSport centroSportivoSport) {
-        this.centroSportivoSport = centroSportivoSport;
+    public void setCentroSportivoSports(List<CentroSportivoSport> centroSportivoSports) {
+        this.centroSportivoSports = centroSportivoSports;
     }
 }
