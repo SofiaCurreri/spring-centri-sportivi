@@ -37,6 +37,7 @@ public class CentroSportivo {
     @OneToMany(mappedBy = "centroSportivo", cascade = {CascadeType.ALL})
     private List<Membro> membri = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "centroSportivo")
     private CentroSportivoSport centroSportivoSport;
 

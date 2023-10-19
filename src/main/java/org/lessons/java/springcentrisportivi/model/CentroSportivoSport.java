@@ -16,7 +16,7 @@ public class CentroSportivoSport {
     private Integer id;
 
     @Column(nullable = false)
-    @NotNull(message = "E' necessario dichiarare i giorni disponibili per praticare questo sport")
+    @NotNull(message = "E' necessario dichiarare i giorni in cui è possibile praticare questo sport")
     private Set<String> giorniDisponibili = new HashSet<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
