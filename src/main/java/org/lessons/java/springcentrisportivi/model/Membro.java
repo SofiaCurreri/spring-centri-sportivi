@@ -37,10 +37,12 @@ public class Membro {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    //Relazione N a 1 con tabella 'centri_sportivi'
     @ManyToOne
     @JoinColumn(name = "id_centro_sportivo", nullable = false)
     private CentroSportivo centroSportivo;
 
+    //Relazione N a N con tabella 'sports'
     @ManyToMany
     @JoinTable(name = "membro_sport", joinColumns = @JoinColumn(name = "id_membro"), inverseJoinColumns = @JoinColumn(name = "id_sport"))
     private List<Sport> sports = new ArrayList<>();

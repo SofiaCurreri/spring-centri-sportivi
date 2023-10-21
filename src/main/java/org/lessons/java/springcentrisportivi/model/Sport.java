@@ -22,10 +22,12 @@ public class Sport {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    //Relazione N a N con tabella 'membri'
     @JsonIgnore
     @ManyToMany(mappedBy = "sports")
     private List<Membro> membri = new ArrayList<>();
 
+    //Relazione N a N tra tabelle 'membri' e 'centri_sportivi', scompattata in 1 a N tra 'centri_sportivi' e 'centro_sportivo_sport' e 1 a N tra 'sport' e 'centro_sportivo_sport'
     @JsonIgnore
     @OneToMany(mappedBy = "sport")
     private List<CentroSportivoSport> centroSportivoSports;

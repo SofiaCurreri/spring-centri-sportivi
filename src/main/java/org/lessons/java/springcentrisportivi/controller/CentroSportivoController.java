@@ -17,6 +17,7 @@ public class CentroSportivoController {
     @Autowired
     private CentroSportivoRepository centroSportivoRepository;
 
+    //controller per mostrare la lista dei centri sportivi
     @GetMapping
     public String index(Model model) {
         List<CentroSportivo> lista = centroSportivoRepository.findAll();
