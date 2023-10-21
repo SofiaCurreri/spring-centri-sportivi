@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:fragment="head(title)">
+        <meta charset="UTF-8">
+        <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+              name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
+        <!-- Bootstrap-->
+        <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" th:rel="stylesheet"/>
+        <script defer th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
+        fragment
+        <title th:text="${title}"></title>
+    </th:block>
+
+</head>
+<body>
+
+</body>
+</html>
