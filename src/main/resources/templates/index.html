@@ -30,14 +30,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="centroSportivo : ${lista}" th:object="${centroSportivo}">
-            <td class="align-middle" th:text="*{nome}"></td>
-            <td class="align-middle" th:text="*{indirizzo}"></td>
-            <td class="align-middle" th:text="*{citta}"></td>
-            <td class="align-middle text-center" th:text="&euro; + ' ' + *{quotaIscrizione}"></td>
+        <tr th:each="centroSportivo : ${lista}">
+            <td class="align-middle" th:text="${centroSportivo.nome}"></td>
+            <td class="align-middle" th:text="${centroSportivo.indirizzo}"></td>
+            <td class="align-middle" th:text="${centroSportivo.citta}"></td>
+            <td class="align-middle text-center" th:text="&euro; + ' ' + ${centroSportivo.quotaIscrizione}"></td>
             <td class="align-middle">
                 <div class="d-flex align-items-center justify-content-center">
-                    <a><i class="fa-solid fa-eye"></i></a>
+                    <a th:href="@{|/centri-sportivi/${centroSportivo.id}|}"><i
+                            class="fa-solid fa-eye text-dark"></i></a>
                     <a class="ms-3"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form action="#" method="post">
                         <button class="btn text-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
