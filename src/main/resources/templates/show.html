@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:replace="fragments :: head(title='Centro sportivo')"></th:block>
+</head>
+
+<body>
+
+<!--Navbar-->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container" th:object="${centroSportivo}">
+
+    <section class="mt-5">
+        <h1 class="mb-5" th:text="*{nome}"></h1>
+
+        <dt>Descrizione</dt>
+        <dd th:text="*{descrizione}"></dd>
+
+        <dt>Indirizzo</dt>
+        <dd th:text="*{indirizzo}"></dd>
+
+        <dt>Città</dt>
+        <dd th:text="*{citta}"></dd>
+
+        <dt>Quota d' iscrizione prevista</dt>
+        <dd th:text="&euro; + ' ' + *{quotaIscrizione}"></dd>
+
+
+        <h4 class="mt-5">Membri</h4>
+        <table class="table table-striped table-hover" th:if="${centroSportivo.membri.size() > 0}" >
+            <thead>
+            <tr class="table-dark">
+                <th scope="col">Nome </i></th>
+                <th scope="col">Cognome</th>
+                <th scope="col">Email</th>
+<!--                <th scope="col">Sport</th>-->
+                <th scope="col" class="text-center">Data di nascita</th>
+                <th scope="col" class="text-center">Data d' iscrizione</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="membro : ${centroSportivo.membri}" th:object="${membro}"  class="align-middle">
+                <td th:text="*{nome}" class="align-middle"></td>
+                <td th:text="*{cognome}" class="align-middle"></td>
+                <td th:text="*{email}" class="align-middle"></td>
+<!--                <td th:each="sport : ${centroSportivo.membri.sports}">-->
+<!--                    <div th:text="${sport}"></div>-->
+<!--                </td>-->
+                <td th:text="*{dataDiNascita}" class="text-center align-middle"></td>
+                <td th:text="*{dataIscrizione}" class="text-center align-middle"></td>
+                <td class="align-middle">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <a class="mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <form action="#" method="post">
+                            <button type="submit" class="btn text-danger"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+<!--        <ul >-->
+<!--            <li th:each="sport : ${centroSportivo.membri.sports}" th:text="${sport.nome}"> </li>-->
+<!--        </ul>-->
+    </section>
+</div>
+</body>
+</html>
