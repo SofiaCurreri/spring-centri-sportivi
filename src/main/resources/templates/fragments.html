@@ -10,12 +10,38 @@
         <!-- Bootstrap-->
         <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" th:rel="stylesheet"/>
         <script defer th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
-        fragment
+
+        <!-- Mio File CSS-->
+        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+
         <title th:text="${title}"></title>
     </th:block>
 
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+    <div class="container-fluid">
+        <h1 class="text-light">Centri Sportivi SportPlus</h1>
+
+        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link" th:href="@{/centri-sportivi}">Centri Sportivi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Membri</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 </body>
 </html>
