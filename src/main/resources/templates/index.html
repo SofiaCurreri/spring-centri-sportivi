@@ -6,7 +6,10 @@
 
 <body>
 
-<div class="container d-flex flex-column justify-content-center align-items-center" style="height:100vh;">
+<!--Navbar-->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
 
     <h1 class="mb-5">I Miei Centri Sportivi</h1>
 
@@ -23,6 +26,7 @@
             <th scope="col">Indirizzo</th>
             <th scope="col">Città</th>
             <th class="text-center" scope="col">Quota d' iscrizione</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +35,15 @@
             <td class="align-middle" th:text="*{indirizzo}"></td>
             <td class="align-middle" th:text="*{citta}"></td>
             <td class="align-middle text-center" th:text="&euro; + ' ' + *{quotaIscrizione}"></td>
+            <td class="align-middle">
+                <div class="d-flex align-items-center justify-content-center">
+                    <a><i class="fa-solid fa-eye"></i></a>
+                    <a class="ms-3"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="#" method="post">
+                        <button class="btn text-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                    </form>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
