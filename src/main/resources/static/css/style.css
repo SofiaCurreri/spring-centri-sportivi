@@ -1,0 +1,8 @@
+.navbar-collapse{
+    flex-grow:0;
+}
+
+.container{
+    height: 100vh;
+}
+
