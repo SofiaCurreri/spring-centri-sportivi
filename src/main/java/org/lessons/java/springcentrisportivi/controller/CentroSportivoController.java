@@ -63,6 +63,8 @@ public class CentroSportivoController {
     //controller per creare e salvare il nuovo centro sportivo
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("centroSportivo") CentroSportivo centroSportivoForm, BindingResult bindingResult, Model model) {
+
+        //validazione personalizzata per unique constraint dato all' attributo indirizzo
         if (centroSportivoRepository.existsByIndirizzo(centroSportivoForm.getIndirizzo())) {
             bindingResult.rejectValue("indirizzo", "indirizzo.duplicate", "L' indirizzo inserito risulta essere già in uso");
         }
@@ -75,12 +77,69 @@ public class CentroSportivoController {
         centroSportivoForm.setCreatedAt(LocalDateTime.now());
         centroSportivoForm.setUpdatedAt(LocalDateTime.now());
 
+        //se utente non inserisce un nome nel compilare form di creazione, verrà assegnato automaticamente 'SportPlus'
         if (centroSportivoForm.getNome() == null || centroSportivoForm.getNome().isEmpty()) {
             centroSportivoForm.setNome("SportPlus");
         }
 
         centroSportivoRepository.save(centroSportivoForm);
+
         return "redirect:/centri-sportivi";
+    }
+
+    //controller per modificare il centro sportivo
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<CentroSportivo> result = centroSportivoRepository.findById(id);
+
+        //controllo che esista il centro sportivo che si vuole modificare
+        //se non esiste lancio eccezione
+        if (result.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non esiste un centro sportivo con id = " + id);
+        }
+
+        //se esiste passo centro sportivo con id = centroSportivoId al model così da popolare form dell' edit
+        CentroSportivo centroSportivoToEdit = result.get();
+        model.addAttribute("centroSportivo", centroSportivoToEdit);
+        model.addAttribute("sportsList", sportRepository.findAll());
+
+        return "editCreate";
+    }
+
+    //controller per salvare modifiche apportate al centro sportivo
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("centroSportivo") CentroSportivo centroSportivoForm, BindingResult bindingResult, Model model) {
+        Optional<CentroSportivo> result = centroSportivoRepository.findById(id);
+
+        if (result.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non esiste un centro sportivo con id = " + id);
+        }
+
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("sportsList", sportRepository.findAll());
+            return "editCreate";
+        }
+
+        CentroSportivo centroSportivoToEdit = result.get();
+
+        //validazione personalizzata per unique constraint dato all' attributo indirizzo
+        if (centroSportivoRepository.existsByIndirizzo(centroSportivoForm.getIndirizzo()) && !centroSportivoToEdit.getIndirizzo().equals(centroSportivoForm.getIndirizzo())) {
+            bindingResult.rejectValue("indirizzo", "indirizzo.duplicate", "L' indirizzo inserito risulta essere già in uso");
+        }
+
+        //se utente cancella nome preesistente senza inserirne uno nuovo, verrà assegnato automaticamente 'SportPlus'
+        if (centroSportivoToEdit.getNome() == null || centroSportivoToEdit.getNome().isEmpty()) {
+            centroSportivoForm.setNome("SportPlus");
+        }
+
+        //setto elementi non gestibili dall' utente
+        centroSportivoForm.setId(centroSportivoToEdit.getId());
+        centroSportivoForm.setCreatedAt(centroSportivoToEdit.getCreatedAt());
+        centroSportivoForm.setUpdatedAt(LocalDateTime.now());
+
+        centroSportivoRepository.save(centroSportivoForm);
+        return "redirect:/centri-sportivi/{id}";
     }
 
 }
