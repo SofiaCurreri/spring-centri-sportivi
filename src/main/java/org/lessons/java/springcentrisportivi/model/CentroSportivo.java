@@ -17,7 +17,6 @@ public class CentroSportivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "E' necessario inserire un nome")
     @Column(nullable = false)
     private String nome;
     private String descrizione;
