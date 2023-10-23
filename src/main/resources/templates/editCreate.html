@@ -6,25 +6,22 @@
     </head>
 </head>
 
-<!--th:with="isEdit=${centroSportivo.id != null}"-->
-
-<body>
+<body th:with="isEdit=${centroSportivo.id != null}">
 
 <!--Navbar-->
 <th:block th:replace="fragments :: navbar"></th:block>
 
 <div class="container mt-5">
-    <!--    th:text="${isEdit ? 'Modifica ' + centroSportivo.nome : 'Crea un nuovo Centro Sportivo'}"-->
-    <h1>Crea un nuovo Centro Sportivo</h1>
 
-    <!--    th:with="formAction=${isEdit ? '/centri-sportivi/edit/' + centroSportivo.id : '/centri-sportivi/create'}"-->
+    <h1 th:text="${isEdit ? 'Modifica ' + centroSportivo.nome : 'Crea un nuovo Centro Sportivo'}"></h1>
+
     <form
             class="row mt-5"
             id="centro-sportivo-form"
             method="post"
-            th:action="@{/centri-sportivi/create}"
+            th:action="@{${formAction}}"
             th:object="${centroSportivo}"
-
+            th:with="formAction=${isEdit ? '/centri-sportivi/edit/' + centroSportivo.id : '/centri-sportivi/create'}"
     >
 
         <div class="col-6 my-2">
@@ -32,11 +29,11 @@
             <input class="form-control" id="centro-sportivo-nome" placeholder="SportPlus"
                    th:errorClass="is-invalid" th:field="*{nome}" type="text">
             <div class="form-text">Se non inserisci un nome, verrà salvato automaticamente come 'SportPlus'</div>
-            <!--            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">-->
-            <!--                <ul>-->
-            <!--                    <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>-->
-            <!--                </ul>-->
-            <!--            </div>-->
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+                </ul>
+            </div>
         </div>
 
         <div class="col-6 my-2">
