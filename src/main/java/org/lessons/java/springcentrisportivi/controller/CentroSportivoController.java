@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -140,6 +141,25 @@ public class CentroSportivoController {
 
         centroSportivoRepository.save(centroSportivoForm);
         return "redirect:/centri-sportivi/{id}";
+    }
+
+    //controller per eliminare centro sportivo
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Optional<CentroSportivo> result = centroSportivoRepository.findById(id);
+
+        //controllo che il centro sportivo che si vuole eliminare esista
+        //se non esiste lancio eccezione
+        if (result.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non esiste un centro sportivo con id = " + id);
+        }
+
+        //se esiste lo estraggo con .get() per poi eliminarlo
+        CentroSportivo centroSportivoToDelete = result.get();
+
+        centroSportivoRepository.delete(centroSportivoToDelete);
+        redirectAttributes.addFlashAttribute("messaggio", "Il centro sportivo " + centroSportivoToDelete.getNome() + " è stato eliminato!");
+        return "redirect:/centri-sportivi";
     }
 
 }
