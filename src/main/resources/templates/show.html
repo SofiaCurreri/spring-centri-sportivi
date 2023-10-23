@@ -12,6 +12,8 @@
 <div class="container" th:object="${centroSportivo}">
 
     <section class="mt-5">
+
+        <!--Specifiche centro sportivo-->
         <h1 class="mb-5" th:text="*{nome}"></h1>
 
         <dt>Descrizione</dt>
@@ -27,8 +29,9 @@
         <dd th:text="&euro; + ' ' + *{quotaIscrizione}"></dd>
 
 
-        <h4 class="mt-5">Membri</h4>
-        <table class="table table-striped table-hover" th:if="${centroSportivo.membri.size() > 0}" >
+        <!--Membri iscritti a questo centro sportivo-->
+        <h4 class="mt-5 mb-3">Membri</h4>
+        <table class="table table-striped table-hover" th:if="*{membri.size() > 0}" >
             <thead>
             <tr class="table-dark">
                 <th scope="col">Nome </i></th>
@@ -63,6 +66,9 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- Messaggio di avviso che compare solo qualora la lista di membri del centro sportivo sia vuota-->
+        <div class="alert alert-info" th:unless="*{membri.size() > 0}">Non ci sono ancora iscritti</div>
 
 <!--        <ul >-->
 <!--            <li th:each="sport : ${centroSportivo.membri.sports}" th:text="${sport.nome}"> </li>-->
