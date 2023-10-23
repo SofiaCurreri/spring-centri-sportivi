@@ -37,9 +37,14 @@
             <td class="align-middle text-center" th:text="&euro; + ' ' + ${centroSportivo.quotaIscrizione}"></td>
             <td class="align-middle">
                 <div class="d-flex align-items-center justify-content-center">
+                    <!--Per vedere i dettagli del centro sportivo-->
                     <a th:href="@{|/centri-sportivi/${centroSportivo.id}|}"><i
                             class="fa-solid fa-eye text-dark"></i></a>
+
+                    <!--Per andare alla pagina di modifica del centro sportivo-->
                     <a class="ms-3"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                    <!--Per eliminare il centro sportivo-->
                     <form action="#" method="post">
                         <button class="btn text-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                     </form>
@@ -48,6 +53,12 @@
         </tr>
         </tbody>
     </table>
+
+    <div class="my-5 me-auto">
+        <a class="btn btn-outline-dark" th:href="@{/centri-sportivi/create}">Nuovo
+            Centro
+            Sportivo</a>
+    </div>
 
 </div>
 
