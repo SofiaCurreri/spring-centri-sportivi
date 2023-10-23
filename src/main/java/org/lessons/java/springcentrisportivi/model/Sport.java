@@ -16,7 +16,7 @@ public class Sport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "E' necessario inserire un nome")
+    @NotBlank(message = "È necessario inserire un nome")
     @Column(unique = true, nullable = false)
     private String nome;
     private LocalDateTime createdAt;

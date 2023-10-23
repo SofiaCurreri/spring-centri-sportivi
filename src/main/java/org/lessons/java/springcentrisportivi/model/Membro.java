@@ -18,20 +18,20 @@ public class Membro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "E' necessario inserire un nome")
+    @NotBlank(message = "È necessario inserire un nome")
     @Column(nullable = false)
     private String nome;
-    @NotBlank(message = "E' necessario inserire un cognome")
+    @NotBlank(message = "È necessario inserire un cognome")
     @Column(nullable = false)
     private String cognome;
-    @NotNull(message = "E' necessario inserire una data di nascita")
+    @NotNull(message = "È necessario inserire una data di nascita")
     @Past(message = "La data deve essere nel passato")
     @Column(nullable = false)
     private LocalDate dataDiNascita;
-    @NotBlank(message = "E' necessario inserire un indirizzo email")
+    @NotBlank(message = "È necessario inserire un indirizzo email")
     @Column(unique = true, nullable = false)
     private String email;
-    @NotNull(message = "E' necessario inserire una data di iscrizione")
+    @NotNull(message = "È necessario inserire una data di iscrizione")
     @Column(nullable = false)
     private LocalDate dataIscrizione;
     private LocalDateTime createdAt;

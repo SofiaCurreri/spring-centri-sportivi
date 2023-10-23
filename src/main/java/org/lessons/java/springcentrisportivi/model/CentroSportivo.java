@@ -20,14 +20,14 @@ public class CentroSportivo {
     @Column(nullable = false)
     private String nome;
     private String descrizione;
-    @NotBlank(message = "E' necessario inserire un indirizzo")
+    @NotBlank(message = "È necessario inserire un indirizzo")
     @Column(unique = true, nullable = false)
     private String indirizzo;
-    @NotBlank(message = "E' necessario inserire una città")
+    @NotBlank(message = "È necessario inserire una città")
     @Column(nullable = false)
     private String citta;
     @Column(nullable = false)
-    @NotNull(message = "E' necessario inserire una quota di iscrizione")
+    @NotNull(message = "È necessario inserire una quota di iscrizione")
     private Integer quotaIscrizione;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
