@@ -63,6 +63,10 @@ public class CentroSportivoController {
     //controller per creare e salvare il nuovo centro sportivo
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("centroSportivo") CentroSportivo centroSportivoForm, BindingResult bindingResult, Model model) {
+        if (centroSportivoRepository.existsByIndirizzo(centroSportivoForm.getIndirizzo())) {
+            bindingResult.rejectValue("indirizzo", "indirizzo.duplicate", "L' indirizzo inserito risulta essere già in uso");
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("sportsList", sportRepository.findAll());
             return "editCreate";
@@ -74,7 +78,7 @@ public class CentroSportivoController {
         if (centroSportivoForm.getNome() == null || centroSportivoForm.getNome().isEmpty()) {
             centroSportivoForm.setNome("SportPlus");
         }
-        
+
         centroSportivoRepository.save(centroSportivoForm);
         return "redirect:/centri-sportivi";
     }

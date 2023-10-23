@@ -4,4 +4,7 @@ import org.lessons.java.springcentrisportivi.model.CentroSportivo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CentroSportivoRepository extends JpaRepository<CentroSportivo, Integer> {
+    
+    //per l' unicità dell' indirizzo
+    boolean existsByIndirizzo(String indirizzo);
 }
