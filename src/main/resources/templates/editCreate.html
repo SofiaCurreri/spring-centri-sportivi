@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <head>
+        <th:block th:replace="fragments :: head(title='Crea Centro Sportivo')"></th:block>
+    </head>
+</head>
+
+<!--th:with="isEdit=${centroSportivo.id != null}"-->
+
+<body>
+
+<!--Navbar-->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container mt-5">
+    <!--    th:text="${isEdit ? 'Modifica ' + centroSportivo.nome : 'Crea un nuovo Centro Sportivo'}"-->
+    <h1>Crea un nuovo Centro Sportivo</h1>
+
+    <!--    th:with="formAction=${isEdit ? '/centri-sportivi/edit/' + centroSportivo.id : '/centri-sportivi/create'}"-->
+    <form
+            class="row mt-5"
+            id="centro-sportivo-form"
+            method="post"
+            th:action="@{/centri-sportivi/create}"
+            th:object="${centroSportivo}"
+
+    >
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="centro-sportivo-nome">Nome*</label>
+            <input class="form-control" id="centro-sportivo-nome" placeholder="SportPlus"
+                   th:errorClass="is-invalid" th:field="*{nome}" type="text">
+            <div class="form-text">Se non inserisci un nome, verrà salvato automaticamente come 'SportPlus'</div>
+            <!--            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">-->
+            <!--                <ul>-->
+            <!--                    <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>-->
+            <!--                </ul>-->
+            <!--            </div>-->
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="centro-sportivo-quota">Quota d' iscrizione*</label>
+            <input class="form-control" id="centro-sportivo-quota" th:errorClass="is-invalid"
+                   th:field="*{quotaIscrizione}"
+                   type="number">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('quotaIscrizione')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('quotaIscrizione')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="centro-sportivo-indirizzo">Indirizzo* (es. Via Mazzini 12)</label>
+            <input class="form-control" id="centro-sportivo-indirizzo" th:errorClass="is-invalid"
+                   th:field="*{indirizzo}"
+                   type="text">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('indirizzo')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('indirizzo')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="centro-sportivo-citta">Città*</label>
+            <input class="form-control" id="centro-sportivo-citta" th:errorClass="is-invalid" th:field="*{citta}"
+                   type="text">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('citta')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('citta')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="descrizione">Descrizione</label>
+            <textarea class="form-control" id="descrizione" rows="10" th:field="*{descrizione}"></textarea>
+        </div>
+
+        <!--        <div class="col-6 my-2 ">-->
+        <!--            <label class="form-label">Sport praticabili</label>-->
+        <!--            <div class="form-check" th:each="sport : ${sportsList}">-->
+        <!--                <input class="form-check-input" th:field="*{centroSportivoSports}" th:id="|sport_${sport.id}|"-->
+        <!--                       th:value="${sport.id}"-->
+        <!--                       type="checkbox">-->
+        <!--                <label class="form-check-label" th:for="|sport_${sport.id}|" th:text="${sport.nome}"></label>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="col-12 my-4">
+            <button class="btn btn-success" type="submit">Salva</button>
+            <a class="btn btn-secondary mx-1" th:href="@{/centri-sportivi}">Annulla</a>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>
