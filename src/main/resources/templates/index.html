@@ -13,12 +13,16 @@
 
     <h1 class="mb-5">I Miei Centri Sportivi</h1>
 
+    <!-- Messaggio di avvenuta eliminazione di un centro sportivo-->
+    <div class="alert alert-danger w-100 text-center" role="alert" th:if="${messaggio != null}"
+         th:text="${messaggio}"></div>
+
     <!-- Messaggio di avviso che compare solo qualora la lista di centri sportivi sia vuota -->
-    <div class="alert alert-info w-100 text-center" role="alert" th:if="${messaggio != null}">
+    <div class="alert alert-info w-100 text-center" role="alert" th:unless="${lista.size() > 0}">
         <h4 th:text="${messaggio}"></h4>
     </div>
 
-    <!-- Tabella con dati principali di tutti i centri sportivi-->
+    <!-- Tabella con dati principali di tutti i centri sportivi, la mostro solo se ho almeno 1 centro sportivo-->
     <table class="table table-striped table-hover" th:if="${lista.size() > 0}">
         <thead>
         <tr class="table-dark">
@@ -46,7 +50,7 @@
                             class="fa-solid fa-pen-to-square"></i></a>
 
                     <!--Per eliminare il centro sportivo-->
-                    <form action="#" method="post">
+                    <form method="post" th:action="@{|/centri-sportivi/delete/${centroSportivo.id}|}">
                         <button class="btn text-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                     </form>
                 </div>
