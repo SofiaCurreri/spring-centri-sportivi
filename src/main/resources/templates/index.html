@@ -42,7 +42,8 @@
                             class="fa-solid fa-eye text-dark"></i></a>
 
                     <!--Per andare alla pagina di modifica del centro sportivo-->
-                    <a class="ms-3"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="ms-3" th:href="@{|/centri-sportivi/edit/${centroSportivo.id}|}"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
 
                     <!--Per eliminare il centro sportivo-->
                     <form action="#" method="post">
@@ -54,10 +55,9 @@
         </tbody>
     </table>
 
+    <!--Porta al form di creazione-->
     <div class="my-5 me-auto">
-        <a class="btn btn-outline-dark" th:href="@{/centri-sportivi/create}">Nuovo
-            Centro
-            Sportivo</a>
+        <a class="btn btn-outline-dark" th:href="@{/centri-sportivi/create}">Nuovo Centro Sportivo</a>
     </div>
 
 </div>
