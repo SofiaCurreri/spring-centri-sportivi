@@ -17,7 +17,8 @@
         <h1 class="mb-5 text-center" th:text="*{nome}"></h1>
 
         <dt>Descrizione</dt>
-        <dd th:text="*{descrizione}"></dd>
+        <dd th:if="*{descrizione} != ''" th:text="*{descrizione}"></dd>
+        <dd th:unless="*{descrizione}!= ''"> - </dd>
 
         <dt>Indirizzo</dt>
         <dd th:text="*{indirizzo}"></dd>
