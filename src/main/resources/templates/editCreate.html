@@ -12,7 +12,7 @@
 <!--Navbar-->
 <th:block th:replace="fragments :: navbar"></th:block>
 
-<div class="container mt-5">
+<div class="container d-flex flex-column justify-content-center align-items-center">
 
     <h1 th:text="${isEdit ? 'Modifica ' + centroSportivo.nome : 'Crea un nuovo Centro Sportivo'}"></h1>
 
@@ -80,15 +80,15 @@
             <textarea class="form-control" id="descrizione" rows="10" th:field="*{descrizione}"></textarea>
         </div>
 
-        <!--        <div class="col-6 my-2 ">-->
-        <!--            <label class="form-label">Sport praticabili</label>-->
-        <!--            <div class="form-check" th:each="sport : ${sportsList}">-->
-        <!--                <input class="form-check-input" th:field="*{centroSportivoSports}" th:id="|sport_${sport.id}|"-->
-        <!--                       th:value="${sport.id}"-->
-        <!--                       type="checkbox">-->
-        <!--                <label class="form-check-label" th:for="|sport_${sport.id}|" th:text="${sport.nome}"></label>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <div class="col-6 my-2 ">
+            <label class="form-label">Sport praticabili: </label>
+            <div class="form-check" th:each="sport : ${sportsList}">
+                <input class="form-check-input" th:field="*{sports}" th:id="|sport_${sport.id}|"
+                       th:value="${sport.id}"
+                       type="checkbox">
+                <label class="form-check-label" th:for="|sport_${sport.id}|" th:text="${sport.nome}"></label>
+            </div>
+        </div>
 
         <div class="col-12 my-4">
             <button class="btn btn-success" type="submit">Salva</button>

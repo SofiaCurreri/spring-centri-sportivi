@@ -9,7 +9,7 @@
 <!--Navbar-->
 <th:block th:replace="fragments :: navbar"></th:block>
 
-<div class="container" th:object="${centroSportivo}">
+<div class="container d-flex flex-column justify-content-center " th:object="${centroSportivo}">
 
     <!--Specifiche centro sportivo-->
     <section class="mt-5">
@@ -28,6 +28,12 @@
 
         <dt>Quota d' iscrizione prevista</dt>
         <dd th:text="&euro; + ' ' + *{quotaIscrizione}"></dd>
+
+<!--        <dt>Sport praticabili</dt>-->
+<!--        <ul>-->
+<!--            <li th:each="css : ${centroSportivoSports}" th:text="${css.sport.nome}"></li>-->
+<!--        </ul>-->
+
 
     </section>
 
