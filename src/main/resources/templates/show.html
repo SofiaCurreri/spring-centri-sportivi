@@ -47,7 +47,7 @@
                 <th scope="col">Nome </i></th>
                 <th scope="col">Cognome</th>
                 <th scope="col">Email</th>
-<!--                <th scope="col">Sport</th>-->
+                <th scope="col">Sport</th>
                 <th scope="col" class="text-center">Data di nascita</th>
                 <th scope="col" class="text-center">Data d' iscrizione</th>
                 <th scope="col"></th>
@@ -59,11 +59,14 @@
                 <td th:text="*{nome}" class="align-middle"></td>
                 <td th:text="*{cognome}" class="align-middle"></td>
                 <td th:text="*{email}" class="align-middle"></td>
-<!--                <td th:each="sport : ${centroSportivo.membri.sports}">-->
-<!--                    <div th:text="${sport}"></div>-->
-<!--                </td>-->
-                <td th:text="*{dataDiNascita}" class="text-center align-middle"></td>
-                <td th:text="*{dataIscrizione}" class="text-center align-middle"></td>
+                <td class="align-middle">
+                    <span th:each="sport, index : *{sports}">
+                        <span th:text="${sport.nome}"></span>
+                        <span th:if="${!index.last}">, </span>
+                    </span>
+                </td>
+                <td th:text="*{#temporals.format(dataDiNascita, 'dd/MM/yyyy')}" class="text-center align-middle"></td>
+                <td th:text="*{#temporals.format(dataIscrizione, 'dd/MM/yyyy')}" class="text-center align-middle"></td>
                 <td class="align-middle">
                     <div class="d-flex align-items-center justify-content-center">
                         <a class="mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
