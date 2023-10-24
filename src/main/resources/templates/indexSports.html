@@ -9,7 +9,7 @@
 <!--Navbar-->
 <th:block th:replace="fragments :: navbar"></th:block>
 
-<div class="container">
+<div class="container d-flex flex-column justify-content-center">
 
     <h1 class="my-5 text-center">Sport praticabili presso la nostra catena di centri sportivi</h1>
 
@@ -19,7 +19,7 @@
     </div>
 
     <!--Lista sport praticabili, se ci sono-->
-    <ul class="list-group list-group-flush" th:if="${sports.size() > 0}">
+    <ul class="list-group list-group-flush " th:if="${sports.size() > 0}">
         <li class="list-group-item list-group-item-action d-flex juustify-content-between" th:each="sport : ${sports}"
             th:object="${sport}">
 
@@ -29,7 +29,7 @@
             <!--Actions: Modifica o Eliminazione-->
             <div class="d-flex align-items-center ms-auto">
                 <a class="mx-2" th:href="@{/sports(edit=*{id})}"><i class="fa-solid fa-pen-to-square"></i></a>
-                <form action="#" method="post">
+                <form method="post" th:action="@{|/sports/delete/*{id}|}">
                     <button class="btn text-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                 </form>
             </div>
@@ -37,6 +37,7 @@
         </li>
     </ul>
 
+    <!--Mini form per creare o modificare uno sport-->
     <div class="col-5 my-5 ms-3" th:if="${sports.size > 0}">
         <form
                 id="sport-form"

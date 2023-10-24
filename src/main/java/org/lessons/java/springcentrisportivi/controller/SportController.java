@@ -4,10 +4,12 @@ import jakarta.validation.Valid;
 import org.lessons.java.springcentrisportivi.model.Sport;
 import org.lessons.java.springcentrisportivi.repository.SportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -72,6 +74,19 @@ public class SportController {
         }
 
         sportRepository.save(sportForm);
+        return "redirect:/sports";
+    }
+
+    //controller per eliminare uno sport
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Optional<Sport> sport = sportRepository.findById(id);
+        if (sport.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci uno sport con id = " + id);
+        }
+
+        sportRepository.deleteById(id);
+
         return "redirect:/sports";
     }
 }
