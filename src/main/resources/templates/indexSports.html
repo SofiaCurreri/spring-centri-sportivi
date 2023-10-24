@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:replace="fragments :: head(title='Sports')"></th:block>
+</head>
+
+<body>
+
+<!--Navbar-->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container">
+
+    <h1 class="my-5 text-center">Sport praticabili presso la nostra catena di centri sportivi</h1>
+
+    <!--Messaggio di avviso che compare quando non ci sono sport-->
+    <div class="alert alert-info w-100 text-center" role="alert" th:unless="${sports.size() > 0}">
+        <h4 th:text="${messaggio}"></h4>
+    </div>
+
+    <!--Lista sport praticabili, se ci sono-->
+    <ul class="list-group list-group-flush" th:if="${sports.size() > 0}">
+        <li class="list-group-item list-group-item-action d-flex juustify-content-between" th:each="sport : ${sports}"
+            th:object="${sport}">
+
+            <!--Nome-->
+            <div th:text="*{nome}"></div>
+
+            <!--Actions: Modifica o Eliminazione-->
+            <div class="d-flex align-items-center ms-auto">
+                <a class="mx-2" th:href="@{/sports(edit=*{id})}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <form action="#" method="post">
+                    <button class="btn text-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                </form>
+            </div>
+
+        </li>
+    </ul>
+
+    <div class="col-5 my-5 ms-3" th:if="${sports.size > 0}">
+        <form
+                id="sport-form"
+                method="post"
+                th:action="@{/sports/save}"
+                th:object="${sportObj}">
+
+            <input th:field="*{id}" type="hidden">
+            <div class="my-2">
+                <label class="form-label" for="sport-nome">Nome*</label>
+                <input class="form-control" id="sport-nome" th:errorClass="is-invalid" th:field="*{nome}"
+                       type="text">
+                <div class="form-text">Inserisci il nuovo nome dello sport che vuoi creare o modificare</div>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 my-4">
+                    <button class="btn btn-success" type="submit">Salva</button>
+                    <a class="btn btn-secondary" th:href="@{/sports}">Annulla</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+</body>
+</html>
