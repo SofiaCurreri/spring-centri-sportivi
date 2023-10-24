@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "centri_sportivi")
@@ -40,7 +42,7 @@ public class CentroSportivo {
     //Relazione N a N tra tabelle 'membri' e 'centri_sportivi', scompattata in 1 a N tra 'centri_sportivi' e 'centro_sportivo_sport' e 1 a N tra 'sport' e 'centro_sportivo_sport'
     @JsonIgnore
     @OneToMany(mappedBy = "centroSportivo")
-    private List<CentroSportivoSport> centroSportivoSports;
+    private Set<CentroSportivoSport> sports = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -114,11 +116,11 @@ public class CentroSportivo {
         this.membri = membri;
     }
 
-    public List<CentroSportivoSport> getCentroSportivoSports() {
-        return centroSportivoSports;
+    public Set<CentroSportivoSport> getSports() {
+        return sports;
     }
 
-    public void setCentroSportivoSports(List<CentroSportivoSport> centroSportivoSports) {
-        this.centroSportivoSports = centroSportivoSports;
+    public void setSports(Set<CentroSportivoSport> sports) {
+        this.sports = sports;
     }
 }
