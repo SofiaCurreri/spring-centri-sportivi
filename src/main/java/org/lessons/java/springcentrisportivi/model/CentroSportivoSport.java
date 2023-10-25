@@ -12,6 +12,7 @@ import java.util.Set;
 public class CentroSportivoSport {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
