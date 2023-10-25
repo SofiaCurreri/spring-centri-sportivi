@@ -69,4 +69,46 @@ public class MembroController {
         membroRepository.save(membroForm);
         return "redirect:/centri-sportivi/" + membroForm.getCentroSportivo().getId();
     }
+
+    //controller per modificare membro
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Membro> membro = membroRepository.findById(id);
+        if (membro.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci un membro con id = " + id);
+        }
+
+        Membro membroToEdit = membro.get();
+        model.addAttribute("membro", membroToEdit);
+        return "editCreateMembro";
+    }
+
+    //controller per salvare modifiche apportate
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("membro") Membro membroForm, BindingResult bindingResult) {
+        Optional<Membro> membro = membroRepository.findById(id);
+
+        if (membro.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci un membro con id = " + id);
+        }
+
+        Membro membroToEdit = membro.get();
+
+        //validazione personalizzata per unique constraint dato all' attributo email
+        if (membroRepository.existsByEmail(membroForm.getEmail()) && !membroToEdit.getEmail().equals(membroForm.getEmail())) {
+            bindingResult.rejectValue("email", "email.duplicate", "L' email inserita risulta essere già in uso");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "editCreateMembro";
+        }
+
+        membroForm.setId(membroToEdit.getId());
+        membroForm.setCreatedAt(membroToEdit.getCreatedAt());
+        membroForm.setUpdatedAt(LocalDateTime.now());
+
+        membroRepository.save(membroForm);
+        return "redirect:/centri-sportivi/" + membroForm.getCentroSportivo().getId();
+    }
+
 }
