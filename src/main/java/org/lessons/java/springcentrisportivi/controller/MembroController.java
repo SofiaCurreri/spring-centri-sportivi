@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -109,6 +110,20 @@ public class MembroController {
 
         membroRepository.save(membroForm);
         return "redirect:/centri-sportivi/" + membroForm.getCentroSportivo().getId();
+    }
+
+    //controller per eliminare membro
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Optional<Membro> membro = membroRepository.findById(id);
+        if (membro.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci un membro con id = " + id);
+        }
+
+        Membro membroToDelete = membro.get();
+        membroRepository.delete(membroToDelete);
+        redirectAttributes.addFlashAttribute("messaggio", "È stato eliminato un membro di questo centro sportivo: " + membroToDelete.getNome() + " " + membroToDelete.getCognome());
+        return "redirect:/centri-sportivi/" + membroToDelete.getCentroSportivo().getId();
     }
 
 }

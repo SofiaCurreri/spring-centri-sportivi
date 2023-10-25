@@ -16,6 +16,10 @@
 
         <h1 class="mb-5 text-center" th:text="*{nome}"></h1>
 
+        <!-- Messaggio di avvenuta eliminazione di un membro-->
+        <div class="alert alert-danger w-100 text-center" role="alert" th:if="${messaggio != null}"
+             th:text="${messaggio}"></div>
+
         <dt>Descrizione</dt>
         <dd th:if="*{descrizione} != ''" th:text="*{descrizione}"></dd>
         <dd th:unless="*{descrizione}!= ''"> - </dd>
@@ -70,7 +74,7 @@
                 <td class="align-middle">
                     <div class="d-flex align-items-center justify-content-center">
                         <a th:href="@{|/membri/edit/*{id}|}" class="mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <form action="#" method="post">
+                        <form th:action="@{|/membri/delete/*{id}|}" method="post">
                             <button type="submit" class="btn text-danger"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
                     </div>
