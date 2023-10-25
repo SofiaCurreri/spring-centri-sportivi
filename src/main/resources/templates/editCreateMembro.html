@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <head>
+        <th:block
+                th:replace="fragments :: head(title=${membro.id != null} ? 'Modifica membro' : 'Crea nuovo membro')"></th:block>
+    </head>
+</head>
+
+<body th:with="isEdit=${membro.id != null}">
+
+<!--Navbar-->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
+
+    <h1 th:text="${isEdit ? 'Modifica ' + membro.nome + ' ' + membro.cognome : 'Crea un nuovo membro'}"></h1>
+
+    <form
+            class="row mt-5"
+            id="membro-form"
+            method="post"
+            th:action="@{${formAction}}"
+            th:object="${membro}"
+            th:with="formAction=${isEdit ? '/membri/edit/' + membro.id : '/membri/create'}"
+    >
+        <input th:field="*{centroSportivo}" type="hidden"/>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="membro-nome">Nome*</label>
+            <input class="form-control" id="membro-nome"
+                   th:errorClass="is-invalid" th:field="*{nome}" type="text">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="membro-cognome">Cognome*</label>
+            <input class="form-control" id="membro-cognome" th:errorClass="is-invalid"
+                   th:field="*{cognome}"
+                   type="text">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('cognome')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('cognome')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="membro-email">Email*</label>
+            <input class="form-control" id="membro-email" th:errorClass="is-invalid"
+                   th:field="*{email}"
+                   type="email">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="membro-data-nascita">Data di nascita*</label>
+            <input class="form-control" id="membro-data-nascita" th:errorClass="is-invalid" th:field="*{dataDiNascita}"
+                   type="date">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('dataDiNascita')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('dataDiNascita')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-6 my-2">
+            <label class="form-label" for="membro-data-iscrizione">Data d' iscrizione*</label>
+            <input class="form-control" id="membro-data-iscrizione" th:errorClass="is-invalid"
+                   th:field="*{dataIscrizione}"
+                   type="date">
+            <div class="form-text">Non lasciare questo campo vuoto</div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('dataIscrizione')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('dataIscrizione')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="col-12 my-4">
+            <button class="btn btn-success" type="submit">Salva</button>
+            <a class="btn btn-secondary mx-1" th:href="@{|/centri-sportivi/*{centroSportivo.id}|}">Annulla</a>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
+</html>
