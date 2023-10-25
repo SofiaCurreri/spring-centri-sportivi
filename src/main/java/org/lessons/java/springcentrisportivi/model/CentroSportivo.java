@@ -123,4 +123,12 @@ public class CentroSportivo {
     public void setSports(Set<CentroSportivoSport> sports) {
         this.sports = sports;
     }
+
+//    public List<Sport> getSportDisponibili() {
+//        List<Sport> sportDisponibili = new ArrayList<>();
+//        for (CentroSportivoSport centroSportivoSport : sports) {
+//            sportDisponibili.add(centroSportivoSport.getSport());
+//        }
+//        return sportDisponibili;
+//    }
 }

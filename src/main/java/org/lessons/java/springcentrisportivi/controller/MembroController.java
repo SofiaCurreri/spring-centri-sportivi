@@ -39,8 +39,13 @@ public class MembroController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci un centro sportivo con id = " + centroSportivoId);
         }
 
+
         //se c' è setto attributo centroSportivo con il centroSportivo di cui sopra
         membro.setCentroSportivo(centroSportivo.get());
+
+//        List<Sport> sports = centroSportivo.get().getSportDisponibili();
+
+//        model.addAttribute("sports", sports);
         model.addAttribute("membro", membro);
         return "editCreateMembro";
     }

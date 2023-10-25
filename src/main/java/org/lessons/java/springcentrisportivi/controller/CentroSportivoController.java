@@ -44,8 +44,6 @@ public class CentroSportivoController {
     public String show(@PathVariable("id") Integer centroSportivoId, Model model) {
         Optional<CentroSportivo> centroSportivo = centroSportivoRepository.findById(centroSportivoId);
         if (centroSportivo.isPresent()) {
-//            List<CentroSportivoSport> css = centroSportivo.get().getCentroSportivoSports();
-
             model.addAttribute("centroSportivo", centroSportivo.get());
             return "show";
         } else {
@@ -63,7 +61,7 @@ public class CentroSportivoController {
 
     //controller per creare e salvare il nuovo centro sportivo
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("centroSportivo") CentroSportivo centroSportivoForm, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("centroSportivo") CentroSportivo centroSportivoForm, @RequestParam(value = "sports", required = false) List<Integer> sportIds, BindingResult bindingResult, Model model) {
 
         //validazione personalizzata per unique constraint dato all' attributo indirizzo
         if (centroSportivoRepository.existsByIndirizzo(centroSportivoForm.getIndirizzo())) {
@@ -74,6 +72,35 @@ public class CentroSportivoController {
             model.addAttribute("sportsList", sportRepository.findAll());
             return "editCreate";
         }
+
+//        Set<CentroSportivoSport> selectedSports = new HashSet<>();
+//
+//        //sportIds è un array contenente gli id degli sport selezionati dall' utente
+//        for (Integer sportId : sportIds) {
+//            //creo nuovo oggetto CentroSportivoSport
+//            CentroSportivoSport centroSportivoSport = new CentroSportivoSport();
+//
+//            //controllo che sport con id = sportId ci sia nel db
+//            Optional<Sport> sport = sportRepository.findById(sportId);
+//
+//            if (sport.isPresent()) {
+//                //setto centroSportivo all' oggetto centroSportivoSport
+//                centroSportivoSport.setCentroSportivo(centroSportivoForm);
+//
+//                //setto lo sport all' oggetto centroSportivoSport (è lo sport con id = sportId)
+//                centroSportivoSport.setSport(sport.get());
+//
+//                //a solo scopo di prova perché mancava attributo giorniDisponibili per completare oggetto centroSportivoSport, li setto io fissi
+//                Set<String> giorni = Set.of("lunedì", "mercoledì");
+//                centroSportivoSport.setGiorniDisponibili(giorni);
+//
+//                //aggiungo al set selectedSports l' oggetto centroSportivoSport che ho appena finito di creare
+//                selectedSports.add(centroSportivoSport);
+//            }
+//        }
+//
+//        //ho il mio set contenente oggetti di tipo centroSportivoSport, ovvero selectedSports, pertanto lo passo a setSports() per settare attributo sports di centroSportivoForm
+//        centroSportivoForm.setSports(selectedSports);
 
         centroSportivoForm.setCreatedAt(LocalDateTime.now());
         centroSportivoForm.setUpdatedAt(LocalDateTime.now());
