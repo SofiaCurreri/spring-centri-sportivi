@@ -82,14 +82,20 @@
         <!-- Messaggio di avviso che compare solo qualora la lista di membri del centro sportivo sia vuota-->
         <div class="alert alert-info" th:unless="*{membri.size() > 0}">Non ci sono ancora iscritti</div>
 
-<!--        <ul >-->
-<!--            <li th:each="sport : ${centroSportivo.membri.sports}" th:text="${sport.nome}"> </li>-->
-<!--        </ul>-->
     </section>
 
-    <!--Per tornare alla lista di tutti i centri sportivi-->
-    <div class="my-5">
-        <a class="btn btn-dark" th:href="@{/centri-sportivi}">Torna alla lista</a>
+    <div class="d-flex justify-content-between align-items-center my-5">
+        <!--Porta al form di creazione membro-->
+        <div>
+            <a class="btn btn-outline-dark" th:href="@{/membri/create(centroSportivoId=*{id})}">
+                <i class="fa-solid fa-plus mx-1"></i> Membro</a>
+        </div>
+
+        <!--Per tornare alla lista di tutti i centri sportivi-->
+        <div>
+            <a class="btn btn-dark" th:href="@{/centri-sportivi}">Torna alla lista</a>
+        </div>
+
     </div>
 
 </div>
