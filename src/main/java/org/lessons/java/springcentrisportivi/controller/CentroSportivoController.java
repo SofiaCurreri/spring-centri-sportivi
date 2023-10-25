@@ -73,6 +73,7 @@ public class CentroSportivoController {
             return "editCreate";
         }
 
+//CERCANDO DI SALVARE LE SCELTE DELL' UTENTE IN MERITO AGLI SPORT PRATICABILI NEL CENTRO SPORTIVO CHE SI STA CREANDO
 //        Set<CentroSportivoSport> selectedSports = new HashSet<>();
 //
 //        //sportIds è un array contenente gli id degli sport selezionati dall' utente
@@ -143,12 +144,6 @@ public class CentroSportivoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non esiste un centro sportivo con id = " + id);
         }
 
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("sportsList", sportRepository.findAll());
-            return "editCreate";
-        }
-
         CentroSportivo centroSportivoToEdit = result.get();
 
         //validazione personalizzata per unique constraint dato all' attributo indirizzo
@@ -156,6 +151,11 @@ public class CentroSportivoController {
             bindingResult.rejectValue("indirizzo", "indirizzo.duplicate", "L' indirizzo inserito risulta essere già in uso");
         }
 
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("sportsList", sportRepository.findAll());
+            return "editCreate";
+        }
+        
         //se utente cancella nome preesistente senza inserirne uno nuovo, verrà assegnato automaticamente 'SportPlus'
         if (centroSportivoToEdit.getNome() == null || centroSportivoToEdit.getNome().isEmpty()) {
             centroSportivoForm.setNome("SportPlus");
