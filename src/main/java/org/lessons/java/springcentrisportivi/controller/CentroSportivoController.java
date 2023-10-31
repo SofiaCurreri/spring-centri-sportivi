@@ -43,12 +43,28 @@ public class CentroSportivoController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer centroSportivoId, Model model) {
         Optional<CentroSportivo> centroSportivo = centroSportivoRepository.findById(centroSportivoId);
+
         if (centroSportivo.isPresent()) {
             model.addAttribute("centroSportivo", centroSportivo.get());
             return "show";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci un centro sportivo con id = " + centroSportivoId);
         }
+
+//        if (centroSportivo.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non risulta esserci un centro sportivo con id = " + centroSportivoId);
+//        } else {
+//            Set<CentroSportivoSport> css = centroSportivo.get().getSports();
+//            List<Sport> sportPraticati = new ArrayList<>();
+//            for (CentroSportivoSport c : css) {
+//                Sport sport = c.getSport();
+//                sportPraticati.add(sport);
+//            }
+//
+//            model.addAttribute("centroSportivo", centroSportivo.get());
+//            model.addAttribute("sportPraticati", sportPraticati);
+//            return "show";
+//        }
     }
 
     //controller che restituisce pagina con form di creazione
@@ -155,7 +171,7 @@ public class CentroSportivoController {
             model.addAttribute("sportsList", sportRepository.findAll());
             return "editCreate";
         }
-        
+
         //se utente cancella nome preesistente senza inserirne uno nuovo, verrà assegnato automaticamente 'SportPlus'
         if (centroSportivoToEdit.getNome() == null || centroSportivoToEdit.getNome().isEmpty()) {
             centroSportivoForm.setNome("SportPlus");

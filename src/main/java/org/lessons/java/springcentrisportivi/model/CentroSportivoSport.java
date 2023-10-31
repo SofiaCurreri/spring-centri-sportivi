@@ -16,7 +16,7 @@ public class CentroSportivoSport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "giorni_disponibili", nullable = false)
     @NotNull(message = "È necessario dichiarare i giorni in cui è possibile praticare questo sport")
     private Set<String> giorniDisponibili = new HashSet<>();
     private LocalDateTime createdAt;
@@ -25,11 +25,11 @@ public class CentroSportivoSport {
     //Relazione N a N tra tabelle 'membri' e 'centri_sportivi', scompattata in 1 a N tra 'sport' e 'centro_sportivo_sport' e 1 a N tra 'centri_sportivi' e 'centro_sportivo_sport'
     //Seguono le due controparti di tali relazioni
     @ManyToOne
-    @JoinColumn(name = "id_sport", nullable = false)
+    @JoinColumn(name = "id_sport")
     private Sport sport;
 
     @ManyToOne
-    @JoinColumn(name = "id_centro_sportivo", nullable = false)
+    @JoinColumn(name = "id_centro_sportivo")
     private CentroSportivo centroSportivo;
 
     public Integer getId() {

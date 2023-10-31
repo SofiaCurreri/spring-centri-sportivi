@@ -41,7 +41,7 @@ public class CentroSportivo {
 
     //Relazione N a N tra tabelle 'membri' e 'centri_sportivi', scompattata in 1 a N tra 'centri_sportivi' e 'centro_sportivo_sport' e 1 a N tra 'sport' e 'centro_sportivo_sport'
     @JsonIgnore
-    @OneToMany(mappedBy = "centroSportivo")
+    @OneToMany(mappedBy = "centroSportivo", cascade = CascadeType.ALL)
     private Set<CentroSportivoSport> sports = new HashSet<>();
 
     public Integer getId() {
